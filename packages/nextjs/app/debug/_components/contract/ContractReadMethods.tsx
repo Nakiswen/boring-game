@@ -1,4 +1,5 @@
 import { Abi } from "abi-wan-kanabi";
+import { Address } from "@starknet-react/chains";
 import {
   Contract,
   ContractName,
@@ -36,7 +37,7 @@ export const ContractReadMethods = ({
       {functionsToDisplay.map(({ fn }) => (
         <ReadOnlyFunctionForm
           abi={deployedContractData.abi as Abi}
-          contractAddress={deployedContractData.address}
+          contractAddress={deployedContractData.address as Address}
           abiFunction={fn}
           key={fn.name}
         />

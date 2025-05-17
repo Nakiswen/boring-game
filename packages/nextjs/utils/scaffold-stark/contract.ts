@@ -183,10 +183,7 @@ export const contracts =
 export type UseScaffoldWriteConfig<
   TAbi extends Abi,
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNamesScaffold<
-    ContractAbi<TContractName>,
-    "external"
-  >,
+  TFunctionName extends string,
 > = {
   contractName: TContractName;
 } & IsContractDeclarationMissing<
@@ -277,7 +274,7 @@ export type ExtractAbiFunctionNamesWithInputsScaffold<
 
 export type ExtractAbiFunctionScaffold<
   TAbi extends Abi,
-  TFunctionName extends ExtractAbiFunctionNamesScaffold<TAbi>,
+  TFunctionName extends string,
 > = Extract<
   ExtractAbiFunctionsScaffold<TAbi>,
   {
@@ -290,7 +287,7 @@ export type ExtractAbiFunctionScaffold<
 export type UseScaffoldArgsParam<
   TAbi extends Abi,
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNamesScaffold<TAbi>,
+  TFunctionName extends string,
 > =
   TFunctionName extends ExtractAbiFunctionNamesWithInputsScaffold<
     ContractAbi<ContractName>
@@ -313,10 +310,7 @@ export type UseScaffoldArgsParam<
 export type UseScaffoldReadConfig<
   TAbi extends Abi,
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNamesScaffold<
-    ContractAbi<TContractName>,
-    "view"
-  >,
+  TFunctionName extends string,
 > = {
   contractName: TContractName;
 } & IsContractDeclarationMissing<
@@ -362,13 +356,13 @@ export type EventFilters<
 
 export type UseScaffoldEventHistoryConfig<
   TContractName extends ContractName,
-  TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
+  TEventName extends string,
   TBlockData extends boolean = false,
   TTransactionData extends boolean = false,
   TReceiptData extends boolean = false,
 > = {
   contractName: TContractName;
-  eventName: IsContractDeclarationMissing<string, TEventName>;
+  eventName: TEventName;
   fromBlock: bigint;
   filters?: { [key: string]: any };
   blockData?: TBlockData;
@@ -794,4 +788,9 @@ function encodeCustomEnumWithParsedVariants(
     return [numActiveVariant.toString(), ...parsedParameter];
   }
   return [numActiveVariant.toString(), parsedParameter];
+}
+
+// 添加此工具函数将 ContractAbi 转换为 Abi 类型
+export function toAbi<T extends ContractName>(contractAbi: ContractAbi<T>): Abi {
+  return contractAbi as unknown as Abi;
 }

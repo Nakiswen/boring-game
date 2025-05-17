@@ -24,10 +24,7 @@ function isRawCall(value: Call | any): value is Call {
 export const useScaffoldMultiWriteContract = <
   TAbi extends Abi,
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNamesScaffold<
-    ContractAbi<TContractName>,
-    "external"
-  >,
+  TFunctionName extends string,
 >({
   calls,
   options,
@@ -69,7 +66,7 @@ export const useScaffoldMultiWriteContract = <
             ] as Contract<TContractName>;
             // we convert to starknetjs contract instance here since deployed data may be undefined if contract is not deployed
             const contractInstance = new StarknetJsContract(
-              contract.abi,
+              contract.abi as any,
               contract.address,
             );
 
@@ -98,10 +95,7 @@ export const useScaffoldMultiWriteContract = <
 export function createContractCall<
   TAbi extends Abi,
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNamesScaffold<
-    ContractAbi<TContractName>,
-    "external"
-  >,
+  TFunctionName extends string,
 >(
   contractName: TContractName,
   functionName: TFunctionName,

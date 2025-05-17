@@ -8,6 +8,7 @@ import {
   getFunctionsByStateMutability,
 } from "~~/utils/scaffold-stark/contract";
 import { DisplayVariable } from "./DisplayVariable";
+import { Address } from "@starknet-react/chains";
 
 export const ContractVariables = ({
   refreshDisplayVariables,
@@ -43,7 +44,7 @@ export const ContractVariables = ({
         <DisplayVariable
           abi={deployedContractData.abi as Abi}
           abiFunction={fn}
-          contractAddress={deployedContractData.address}
+          contractAddress={deployedContractData.address as Address}
           key={fn.name}
           refreshDisplayVariables={refreshDisplayVariables}
           //   inheritedFrom={inheritedFrom}

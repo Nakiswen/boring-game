@@ -281,8 +281,8 @@ const BoringGame = () => {
           <div className="mt-8 max-w-2xl bg-white p-6 rounded-lg shadow">
             <h3 className="text-xl font-semibold mb-3">游戏指南</h3>
             <ul className="list-disc pl-6 space-y-2">
-              <li>点击"开始游戏"按钮需要支付1 STRK代币</li>
-              <li>每次点击"Click Me!"按钮获得1积分</li>
+              <li>点击&quot;开始游戏&quot;按钮需要支付1 STRK代币</li>
+              <li>每次点击&quot;Click Me!&quot;按钮获得1积分</li>
               <li>积分达到特定门槛时会解锁购买选项：
                 <ul className="list-circle pl-6 mt-1">
                   <li><strong>50分</strong>：移动图标 - 每次碰到浏览器边界增加1积分（可购买多个）</li>

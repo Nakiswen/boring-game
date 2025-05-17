@@ -37,7 +37,7 @@ const MAX_KEYS_COUNT = 16;
  */
 export const useScaffoldEventHistory = <
   TContractName extends ContractName,
-  TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
+  TEventName extends string,
   TBlockData extends boolean = false,
   TTransactionData extends boolean = false,
   TReceiptData extends boolean = false,
@@ -91,9 +91,9 @@ export const useScaffoldEventHistory = <
         throw new Error("Contract not found");
       }
 
-      const event = (deployedContractData.abi as Abi).find(
-        (part) => part.type === "event" && part.name === eventName,
-      ) as ExtractAbiEvent<ContractAbi<TContractName>, TEventName>;
+      const event = (deployedContractData.abi as any).find(
+        (part: any) => part.type === "event" && part.name === eventName,
+      );
 
       const blockNumber = (await publicClient.getBlockLatestAccepted())
         .block_number;
@@ -217,7 +217,7 @@ export const useScaffoldEventHistory = <
           CallData.getAbiStruct(deployedContractData.abi),
           CallData.getAbiEnum(deployedContractData.abi),
         );
-        const args = parsed.length ? parsed[0][eventName] : {};
+        const args = parsed.length ? parsed[0][eventName as string] : {};
         const { event: rawEvent, ...rest } = event;
         return {
           type: rawEvent.members,

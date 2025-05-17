@@ -1,3 +1,4 @@
+import { Address } from "@starknet-react/chains";
 import { Abi } from "abi-wan-kanabi";
 import { WriteOnlyFunctionForm } from "~~/app/debug/_components/contract";
 import {
@@ -38,7 +39,7 @@ export const ContractWriteMethods = ({
           key={`${fn.name}-${idx}}`}
           abiFunction={fn}
           onChange={onChange}
-          contractAddress={deployedContractData.address}
+          contractAddress={deployedContractData.address as Address}
           //   inheritedFrom={inheritedFrom}
         />
       ))}

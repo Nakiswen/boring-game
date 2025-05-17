@@ -5,6 +5,7 @@ import { useReducer, useState } from "react";
 import dynamic from "next/dynamic";
 import { ContractReadMethods } from "./ContractReadMethods";
 import { Address, Balance } from "~~/components/scaffold-stark";
+import { Address as AddressType } from "@starknet-react/chains";
 import {
   useDeployedContractInfo,
   useNetworkColor,
@@ -72,15 +73,15 @@ export const ContractUI = ({
             <div className="flex">
               <div className="flex flex-col gap-1">
                 <span className="font-bold">{contractName}</span>
-                <Address address={deployedContractData.address} />
+                <Address address={deployedContractData.address as AddressType} />
                 <ClassHash
-                  classHash={deployedContractData.classHash}
+                  classHash={deployedContractData.classHash as AddressType}
                   size="xs"
                 />
                 <div className="flex gap-1 items-center h-5">
                   <span className="font-bold text-sm">Balance:</span>
                   <Balance
-                    address={deployedContractData.address}
+                    address={deployedContractData.address as AddressType}
                     className="px-0 h-1.5 min-h-[0.375rem] text-network"
                   />
                 </div>
